@@ -38,7 +38,9 @@ export default function Home() {
         px={{ base: 4, md: 8 }}
       >
         <VStack gap={5} mt={10}>
-          <Text align={"left"} fontSize={28} fontWeight={"bold"}>Latest Books</Text>
+          <Text align={"left"} fontSize={28} fontWeight={"bold"}>
+            New Arrivals
+          </Text>
           <Flex
             gap={10}
             alignItems={"center"}
@@ -49,6 +51,7 @@ export default function Home() {
             {latestBooks.map((book) => (
               <BookCard
                 key={book.id}
+                id={book.id}
                 name={book.volumeInfo.title}
                 author={book.volumeInfo.authors}
                 imageURL={book.volumeInfo.imageLinks?.thumbnail}

@@ -1,8 +1,10 @@
 import { Box, Flex, Heading, Image, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
-export default function BookCard({ name, author, imageURL }) {
+export default function BookCard({ id, name, author, imageURL }) {
+  const navigate = useNavigate();
   return (
     <Flex alignItems="center" justifyContent="center">
       <Box
@@ -15,6 +17,8 @@ export default function BookCard({ name, author, imageURL }) {
         height="300px"
         display="flex"
         flexDirection="column"
+        onClick={() => navigate(`/book/${id}`)}
+        cursor="pointer"
       >
         {/* Book Image */}
         <Image
@@ -37,7 +41,13 @@ export default function BookCard({ name, author, imageURL }) {
           <Heading size="sm" textAlign="center">
             {name}
           </Heading>
-          <Box fontSize="sm" fontWeight="light" color="gray.600" textAlign="center" mt={2}>
+          <Box
+            fontSize="sm"
+            fontWeight="light"
+            color="gray.600"
+            textAlign="center"
+            mt={2}
+          >
             by {author}
           </Box>
         </Box>
@@ -48,6 +58,7 @@ export default function BookCard({ name, author, imageURL }) {
 
 // Prop Validation
 BookCard.propTypes = {
+  id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
   imageURL: PropTypes.string.isRequired,

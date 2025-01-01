@@ -2,7 +2,7 @@ import React from "react";
 import { Box, Flex } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar";
-import { Home } from "./pages";
+import { Home, DetailPage } from "./pages";
 import Footer from "./components/Footer";
 
 function App() {
@@ -14,6 +14,7 @@ function App() {
         <Box flex="1" mb={10}>
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
+            <Route path="/book/:bookId" element={<DetailPage />} />
           </Routes>
         </Box>
 

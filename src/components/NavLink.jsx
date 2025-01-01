@@ -23,7 +23,7 @@ export default function NavLink({ children, isActive = false }) {
   );
 }
 
-NavLink.prototype = {
-    children: PropTypes.string.isRequired,
-    isActive: PropTypes.bool.isRequired
-}
+NavLink.propTypes = {
+  children: PropTypes.string.isRequired,
+  isActive: PropTypes.bool,
+};

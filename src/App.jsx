@@ -13,7 +13,7 @@ function App() {
         >
           <NavBar />
 
-          <Box flex="1" p={10}>
+          <Box flex="1" pt={8}>
             <Routes>
               <Route exact path="/" element={<Home />}></Route>
             </Routes>

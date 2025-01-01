@@ -1,6 +1,7 @@
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import React from "react";
 import BookCard from "../components/BookCard";
+import Banner from "../components/Banner";
 
 export default function Home() {
   const newArrivals = {
@@ -49,24 +50,27 @@ export default function Home() {
   };
 
   return (
-    <Flex
-      gap={10}
-      alignItems={"center"}
-      justifyContent={"center"}
-      w={"100%"}
-      mt={10}
-      flexWrap={"wrap"}
-    >
-      {Object.keys(newArrivals).map((item) => (
-        <BookCard
-          key={item}
-          name={newArrivals[item].title}
-          author={newArrivals[item].author}
-          price={newArrivals[item].price}
-          imageURL={newArrivals[item].image}
-          rating={newArrivals[item].rating}
-        />
-      ))}
-    </Flex>
+    <Box w={"100%"} mt={10}>
+      <Banner />
+      <Flex
+        gap={10}
+        alignItems={"center"}
+        justifyContent={"center"}
+        w={"100%"}
+        mt={10}
+        flexWrap={"wrap"}
+      >
+        {Object.keys(newArrivals).map((item) => (
+          <BookCard
+            key={item}
+            name={newArrivals[item].title}
+            author={newArrivals[item].author}
+            price={newArrivals[item].price}
+            imageURL={newArrivals[item].image}
+            rating={newArrivals[item].rating}
+          />
+        ))}
+      </Flex>
+    </Box>
   );
 }

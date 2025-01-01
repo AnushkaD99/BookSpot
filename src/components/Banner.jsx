@@ -27,7 +27,7 @@ export default function Banner() {
   const gradientOverlay =
     "linear-gradient(90deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0) 100%)";
   return (
-    <Box position="relative" height="600px" overflow="hidden">
+    <Box position="relative" height="600px">
       {/* Background Image Carousel */}
       <Box
         position="absolute"
@@ -39,6 +39,7 @@ export default function Banner() {
         backgroundSize="cover"
         backgroundPosition="center"
         transition="all 0.5s ease-in-out"
+        overflow={"hidden"}
       />
 
       {/* Gradient Overlay */}

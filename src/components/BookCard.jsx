@@ -2,44 +2,53 @@ import { Box, Flex, Heading, Image, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function BookCard({name, author, imageURL}) {
+export default function BookCard({ name, author, imageURL }) {
   return (
-    <Flex alignItems={"center"} justifyContent={"center"}>
+    <Flex alignItems="center" justifyContent="center">
       <Box
         bg={useColorModeValue("white", "gray.800")}
-        maxW={"200px"}
+        width="200px"
         borderWidth="1px"
         rounded="lg"
         shadow="lg"
         position="relative"
+        height="300px"
+        display="flex"
+        flexDirection="column"
       >
+        {/* Book Image */}
         <Image
-        src={imageURL}
-        alt={`Picture of ${name}`}
-        roundedTop="lg"
-        boxSize={'200px'}
-        objectFit='cover'
+          src={imageURL}
+          alt={`Picture of ${name}`}
+          roundedTop="lg"
+          height="70%"
+          objectFit="cover"
         />
-        <Box p={6}>
-            <Flex mt="1" justifyContent="center" alignContent="center">
-                <Box
-                fontSize="sm"
-                fontWeight="light"
-                lineHeight="tight"
-                >
-                <Heading size={'sm'}>{name}</Heading>
-                 by {author}
-              </Box>
-            </Flex>
+
+        {/* Book Details */}
+        <Box
+          p={4}
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+          flex="1"
+        >
+          <Heading size="sm" textAlign="center">
+            {name}
+          </Heading>
+          <Box fontSize="sm" fontWeight="light" color="gray.600" textAlign="center" mt={2}>
+            by {author}
+          </Box>
         </Box>
       </Box>
     </Flex>
   );
 }
 
-//prop validation
+// Prop Validation
 BookCard.propTypes = {
-    name: PropTypes.string.isRequired,
-    author: PropTypes.string.isRequired,
-    imageURL: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  author: PropTypes.string.isRequired,
+  imageURL: PropTypes.string.isRequired,
 };

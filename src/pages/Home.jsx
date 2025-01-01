@@ -50,7 +50,7 @@ export default function Home() {
   };
 
   return (
-    <Box w={"100%"} mt={10}>
+    <Box w={"100%"}>
       <Banner />
       <Flex
         gap={10}

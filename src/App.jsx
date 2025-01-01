@@ -1,26 +1,23 @@
-import React from 'react'
-import { Box, Flex } from '@chakra-ui/react'
+import React from "react";
+import { Box, Flex } from "@chakra-ui/react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import NavBar from './components/NavBar';
-import { Home } from './pages';
+import NavBar from "./components/NavBar";
+import { Home } from "./pages";
 
 function App() {
   return (
-      <Router>
-        <Flex
-        direction={"column"}
-        minH={"100vh"}
-        >
-          <NavBar />
+    <Router>
+      <Flex direction={"column"} minH={"100vh"}>
+        <NavBar />
 
-          <Box flex="1" pt={8}>
-            <Routes>
-              <Route exact path="/" element={<Home />}></Route>
-            </Routes>
-          </Box>
-        </Flex>
-      </Router>
-  )
+        <Box flex="1">
+          <Routes>
+            <Route exact path="/" element={<Home />}></Route>
+          </Routes>
+        </Box>
+      </Flex>
+    </Router>
+  );
 }
 
-export default App
+export default App;

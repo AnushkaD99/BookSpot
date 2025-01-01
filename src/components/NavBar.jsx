@@ -1,43 +1,122 @@
-import { Box, Button, Flex, Heading, HStack, Text, useColorModeValue } from "@chakra-ui/react";
 import React from "react";
-import { Link } from "react-router-dom";
+import {
+  Box,
+  Flex,
+  Button,
+  Text,
+  Stack,
+  IconButton,
+  useDisclosure,
+  useColorModeValue,
+  Container,
+} from "@chakra-ui/react";
+import { LuCircleX, LuMenu } from "react-icons/lu";
+import NavLink from "./NavLink";
 
 export default function NavBar() {
+  const { isOpen, onToggle } = useDisclosure();
+
+  // Colors using useColorModeValue for light/dark mode support
+  const bgColor = useColorModeValue("white", "gray.800");
+  const textColor = useColorModeValue("gray.800", "white");
+  const accentColor = "purple.500"; // Matches the banner's accent color
+
   return (
     <Box
+      bg={bgColor}
+      px={4}
+      top={0}
+      boxShadow="sm"
       as="nav"
+      position={"sticky"}
+      zIndex={999}
       w={"100%"}
-      position={"fixed"}
-      zIndex={"999"}
-      bg={useColorModeValue("", "gray.800")}
-      bgGradient="linear(to left, rgba(255, 255, 235, 0.2), rgba(255, 255, 255, 0.1))"
-      backdropFilter="blur(8px)"
     >
-      <Flex
-        h={16}
-        px={20}
-        alignItems={"center"}
-        justifyContent={"space-between"}
-      >
-        <Link to={"/"}>
-            <Heading size={"md"}>BookSpot</Heading>
-        </Link>
-        <HStack spacing={8} >
-            <Link to={"/"}>
-                <Text>Home</Text>
-            </Link>
-            <Link to={"/"}>
-                <Text>Home</Text>
-            </Link>
-            <Link to={"/"}>
-                <Text>Home</Text>
-            </Link>
-        </HStack>
-        <HStack>
-            <Button>SignIn</Button>
-            <Button>SignUp</Button>
-        </HStack>
-      </Flex>
+      <Container maxW="container.xl">
+        <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
+          {/* Logo Section */}
+          <Flex alignItems={"center"}>
+            <Text
+              fontSize="xl"
+              fontFamily="'Playfair Display', serif"
+              fontWeight="bold"
+              color={textColor}
+            >
+              BookSpot
+            </Text>
+          </Flex>
+
+          {/* Mobile Menu Button */}
+          <IconButton
+            size={"md"}
+            icon={isOpen ? <LuCircleX size={24} /> : <LuMenu size={24} />}
+            aria-label={"Open Menu"}
+            display={{ md: "none" }}
+            onClick={onToggle}
+          />
+
+          {/* Desktop Navigation */}
+          <Flex display={{ base: "none", md: "flex" }} alignItems={"center"}>
+            <Stack direction={"row"} spacing={8} alignItems={"center"}>
+              {/* Navigation Links */}
+              <Stack direction={"row"} spacing={4}>
+                <NavLink isActive={true}>Home</NavLink>
+                <NavLink>My Books</NavLink>
+              </Stack>
+
+              {/* Auth Buttons */}
+              <Stack direction={"row"} spacing={4} ml={8}>
+                <Button
+                  variant={"ghost"}
+                  color={textColor}
+                  _hover={{
+                    bg: useColorModeValue("gray.100", "gray.700"),
+                  }}
+                >
+                  Sign In
+                </Button>
+                <Button
+                  bg={accentColor}
+                  color={"white"}
+                  _hover={{
+                    bg: "purple.600",
+                  }}
+                >
+                  Sign Up
+                </Button>
+              </Stack>
+            </Stack>
+          </Flex>
+        </Flex>
+
+        {/* Mobile Navigation */}
+        <Box display={{ base: isOpen ? "block" : "none", md: "none" }} pb={4}>
+          <Stack as={"nav"} spacing={4}>
+            <NavLink isActive={true}>Home</NavLink>
+            <NavLink>My Books</NavLink>
+            <Button
+              w="full"
+              variant={"ghost"}
+              color={textColor}
+              _hover={{
+                bg: useColorModeValue("gray.100", "gray.700"),
+              }}
+            >
+              Sign In
+            </Button>
+            <Button
+              w="full"
+              bg={accentColor}
+              color={"white"}
+              _hover={{
+                bg: "purple.600",
+              }}
+            >
+              Sign Up
+            </Button>
+          </Stack>
+        </Box>
+      </Container>
     </Box>
   );
 }

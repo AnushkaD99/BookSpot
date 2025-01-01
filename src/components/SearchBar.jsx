@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { LuSearch } from "react-icons/lu";
 
 export default function SearchBar() {
+  const APIKEY = "AIzaSyDsGl2P7AcOC6wEjxx4sB9CZgsL1DFBz_g";
   const [search, setSearch] = useState("");
   const searchBook = (event) => {
     if (event.key === "Enter") {
@@ -11,7 +12,8 @@ export default function SearchBar() {
         .get(
           "https://www.googleapis.com/books/v1/volumes?q=" +
             search +
-            "&key=APIKEY"
+            "&key=" +
+            APIKEY
         )
         .then((res) => console.log(res));
     }

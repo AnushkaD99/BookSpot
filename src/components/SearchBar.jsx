@@ -12,7 +12,7 @@ import {
   import { LuSearch } from "react-icons/lu";
   
   export default function SearchBar() {
-    const APIKEY = process.env.GOOGLE_BOOKS_API_KEY;
+    const APIKEY = import.meta.env.VITE_GOOGLE_BOOKS_API_KEY;
     const [search, setSearch] = useState("");
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(false);

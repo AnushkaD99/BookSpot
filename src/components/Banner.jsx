@@ -60,7 +60,7 @@ export default function Banner() {
         display="flex"
         flexDirection="column"
         justifyContent="center"
-        pl={{ base: 4, md: 8 }}
+        px={{ base: 4, md: 8 }}
       >
         {/* Main Text Content */}
         <Box maxW="600px" color="white">

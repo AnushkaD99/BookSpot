@@ -1,4 +1,4 @@
-import { Box, Container, Flex, VStack } from "@chakra-ui/react";
+import { Box, Container, Flex, Text, VStack } from "@chakra-ui/react";
 import React, { useState, useEffect } from "react";
 import BookCard from "../components/BookCard";
 import Banner from "../components/Banner";
@@ -35,15 +35,15 @@ export default function Home() {
         display="flex"
         flexDirection="column"
         justifyContent="center"
-        pl={{ base: 4, md: 8 }}
+        px={{ base: 4, md: 8 }}
       >
-        <VStack>
+        <VStack gap={5} mt={10}>
+          <Text align={"left"} fontSize={28} fontWeight={"bold"}>Latest Books</Text>
           <Flex
             gap={10}
             alignItems={"center"}
             justifyContent={"space-between"}
             w={"100%"}
-            mt={10}
             flexWrap={"wrap"}
           >
             {latestBooks.map((book) => (

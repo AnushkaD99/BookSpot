@@ -25,7 +25,7 @@ export default function NavLink ({ children, isActive = false, onClick }) {
   );
 };
 
-NavLink.propType = {
+NavLink.propTypes = {
   children: PropTypes.string.isRequired,
   isActive: PropTypes.bool,
   onClick: PropTypes.func

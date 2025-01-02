@@ -96,7 +96,7 @@ export default function NavBar() {
                 <Button
                   variant={"ghost"}
                   color={textColor}
-                  onClick={() => handleNavigation("#")}
+                  onClick={() => handleNavigation("signin")}
                   _hover={{
                     bg: useColorModeValue("gray.100", "gray.700"),
                   }}
@@ -106,7 +106,7 @@ export default function NavBar() {
                 <Button
                   bg={accentColor}
                   color={"white"}
-                  onClick={() => handleNavigation("#")}
+                  onClick={() => handleNavigation("signup")}
                   _hover={{
                     bg: "purple.600",
                   }}
@@ -134,7 +134,7 @@ export default function NavBar() {
               w="full"
               variant={"ghost"}
               color={textColor}
-              onClick={() => handleNavigation("#")}
+              onClick={() => handleNavigation("signin")}
               _hover={{
                 bg: useColorModeValue("gray.100", "gray.700"),
               }}
@@ -145,7 +145,7 @@ export default function NavBar() {
               w="full"
               bg={accentColor}
               color={"white"}
-              onClick={() => handleNavigation("#")}
+              onClick={() => handleNavigation("signup")}
               _hover={{
                 bg: "purple.600",
               }}

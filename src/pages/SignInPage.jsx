@@ -22,6 +22,7 @@ import {
   useToast
 } from '@chakra-ui/react';
 import { LuEye, LuEyeOff } from 'react-icons/lu';
+import { useAuth } from '../context/AuthContext';
 
 export default function SignInPage() {
   const navigate = useNavigate();
@@ -33,6 +34,7 @@ export default function SignInPage() {
     password: ''
   });
   const [errors, setErrors] = useState({});
+  const {login} = useAuth();
 
   // Colors
   const bgColor = useColorModeValue('gray.50', 'gray.900');
@@ -60,8 +62,11 @@ export default function SignInPage() {
 
     setIsLoading(true);
     try {
-      // Add your authentication logic here
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
+        const result = await login(formData.email, formData.password);
+        if(!result.success) {
+            throw new Error(result.msg);
+        }
+
       toast({
         title: 'Sign in successful!',
         status: 'success',
@@ -72,7 +77,7 @@ export default function SignInPage() {
     } catch (error) {
       toast({
         title: 'Error signing in',
-        description: 'Please check your credentials and try again.',
+        description: error.message || 'Please check your credentials and try again.',
         status: 'error',
         duration: 3000,
         isClosable: true,

@@ -60,6 +60,9 @@ export default function BookCard({ id, name, author, imageURL }) {
 BookCard.propTypes = {
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
-  author: PropTypes.string.isRequired,
+  author: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string)
+  ]).isRequired,
   imageURL: PropTypes.string.isRequired,
 };

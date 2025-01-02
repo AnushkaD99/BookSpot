@@ -44,7 +44,7 @@ export default function Home() {
           <Flex
             gap={10}
             alignItems={"center"}
-            justifyContent={"space-between"}
+            justifyContent={{ base: "center", md: "space-between"}}
             w={"100%"}
             flexWrap={"wrap"}
           >

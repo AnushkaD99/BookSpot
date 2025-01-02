@@ -82,7 +82,7 @@ export default function NavBar() {
             </Text>
             <MenuItem
               icon={<LuUser size={18} />}
-              onClick={() => handleNavigation("/profile")}
+              onClick={() => handleNavigation("/#")}
             >
               Profile
             </MenuItem>
@@ -154,6 +154,7 @@ export default function NavBar() {
             aria-label={"Open Menu"}
             display={{ md: "none" }}
             onClick={onToggle}
+            justifySelf={"center"}
           />
 
           {/* Desktop Navigation */}

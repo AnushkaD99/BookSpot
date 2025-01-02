@@ -1,6 +1,6 @@
 {
   "name": "bookspot",
-  "homepage":  "https://anushkad99.github.io/BookSpot/",
+  "homepage": "https://anushkad99.github.io/BookSpot/",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,7 +20,6 @@
     "dotenv": "^16.4.7",
     "firebase": "^11.1.0",
     "framer-motion": "^11.15.0",
-    "gh-pages": "^6.2.0",
     "install": "^0.13.0",
     "npm": "^10.9.2",
     "prop-types": "^15.8.1",
@@ -38,6 +37,7 @@
     "eslint-plugin-react": "^7.37.2",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.16",
+    "gh-pages": "^6.3.0",
     "globals": "^15.14.0",
     "vite": "^6.0.5"
   }

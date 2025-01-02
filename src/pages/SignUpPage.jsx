@@ -21,6 +21,7 @@ import {
   useToast
 } from '@chakra-ui/react';
 import { LuEye, LuEyeOff } from 'react-icons/lu';
+import { useAuth } from '../context/AuthContext';
 
 export default function SignUpPage() {
   const navigate = useNavigate();
@@ -35,6 +36,7 @@ export default function SignUpPage() {
     confirmPassword: ''
   });
   const [errors, setErrors] = useState({});
+  const {register} = useAuth();
 
   // Colors
   const bgColor = useColorModeValue('gray.50', 'gray.900');
@@ -69,11 +71,14 @@ export default function SignUpPage() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
-
+  
     setIsLoading(true);
     try {
-      // Add your registration logic here
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
+      const result = await register(formData.email, formData.password, formData.name);
+      if (!result.success) {
+        throw new Error(result.msg);
+      }
+  
       toast({
         title: 'Account created successfully!',
         description: 'Welcome to BookSpot.',
@@ -85,7 +90,7 @@ export default function SignUpPage() {
     } catch (error) {
       toast({
         title: 'Error creating account',
-        description: 'Please try again later.',
+        description: error.message || 'Please try again later.',
         status: 'error',
         duration: 3000,
         isClosable: true,
@@ -94,6 +99,7 @@ export default function SignUpPage() {
       setIsLoading(false);
     }
   };
+  
 
   return (
     <Box bg={bgColor} minH="calc(100vh - 64px)" py={12}>

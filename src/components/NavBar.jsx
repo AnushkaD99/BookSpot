@@ -10,14 +10,23 @@ import {
   useDisclosure,
   useColorModeValue,
   Container,
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  Avatar,
 } from "@chakra-ui/react";
-import { LuCircleX, LuMenu } from "react-icons/lu";
+import { LuCircleX, LuMenu, LuLogOut, LuUser } from "react-icons/lu";
 import NavLink from "./NavLink";
+import { useAuth } from "../context/AuthContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebaseConfig";
 
 export default function NavBar() {
   const { isOpen, onToggle } = useDisclosure();
   const navigate = useNavigate();
   const location = useLocation();
+  const { user, isAuthenticated } = useAuth();
 
   // Colors using useColorModeValue for light/dark mode support
   const bgColor = useColorModeValue("white", "gray.800");
@@ -27,7 +36,7 @@ export default function NavBar() {
   // Navigation items configuration
   const navItems = [
     { path: "/", label: "Home" },
-    { path: "/my-books", label: "My Books" },
+    { path: "/my-books", label: "My Books", requiresAuth: true },
   ];
 
   // Handle navigation
@@ -36,8 +45,80 @@ export default function NavBar() {
     if (isOpen) onToggle();
   };
 
+  // Handle logout
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      navigate("/");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   // Check if path is active
   const isActivePath = (path) => location.pathname === path;
+
+  // Auth Buttons Component
+  const AuthButtons = () => {
+    if (isAuthenticated === undefined) {
+      return null; // Loading state
+    }
+
+    if (isAuthenticated && user) {
+      return (
+        <Menu>
+          <MenuButton>
+            <Avatar
+              size="sm"
+              name={user.displayName || user.email}
+              src={user.photoURL}
+              bg={accentColor}
+              icon={<LuUser size={20} />}
+            />
+          </MenuButton>
+          <MenuList>
+            <Text px={3} py={2} fontSize="sm" color="gray.500">
+              {user.displayName || user.email}
+            </Text>
+            <MenuItem
+              icon={<LuUser size={18} />}
+              onClick={() => handleNavigation("/profile")}
+            >
+              Profile
+            </MenuItem>
+            <MenuItem icon={<LuLogOut size={18} />} onClick={handleLogout}>
+              Logout
+            </MenuItem>
+          </MenuList>
+        </Menu>
+      );
+    }
+
+    return (
+      <>
+        <Button
+          variant={"ghost"}
+          color={textColor}
+          onClick={() => handleNavigation("/signin")}
+          _hover={{
+            bg: useColorModeValue("gray.100", "gray.700"),
+          }}
+        >
+          Sign In
+        </Button>
+        <Button
+          bg={accentColor}
+          color={"white"}
+          onClick={() => handleNavigation("/signup")}
+          _hover={{
+            bg: "purple.600",
+          }}
+        >
+          Sign Up
+        </Button>
+      </>
+    );
+  };
 
   return (
     <Box
@@ -80,39 +161,23 @@ export default function NavBar() {
             <Stack direction={"row"} spacing={8} alignItems={"center"}>
               {/* Navigation Links */}
               <Stack direction={"row"} spacing={4}>
-                {navItems.map((item) => (
-                  <NavLink
-                    key={item.path}
-                    isActive={isActivePath(item.path)}
-                    onClick={() => handleNavigation(item.path)}
-                  >
-                    {item.label}
-                  </NavLink>
-                ))}
+                {navItems.map(
+                  (item) =>
+                    (!item.requiresAuth || isAuthenticated) && (
+                      <NavLink
+                        key={item.path}
+                        isActive={isActivePath(item.path)}
+                        onClick={() => handleNavigation(item.path)}
+                      >
+                        {item.label}
+                      </NavLink>
+                    )
+                )}
               </Stack>
 
               {/* Auth Buttons */}
               <Stack direction={"row"} spacing={4} ml={8}>
-                <Button
-                  variant={"ghost"}
-                  color={textColor}
-                  onClick={() => handleNavigation("signin")}
-                  _hover={{
-                    bg: useColorModeValue("gray.100", "gray.700"),
-                  }}
-                >
-                  Sign In
-                </Button>
-                <Button
-                  bg={accentColor}
-                  color={"white"}
-                  onClick={() => handleNavigation("signup")}
-                  _hover={{
-                    bg: "purple.600",
-                  }}
-                >
-                  Sign Up
-                </Button>
+                <AuthButtons />
               </Stack>
             </Stack>
           </Flex>
@@ -121,37 +186,21 @@ export default function NavBar() {
         {/* Mobile Navigation */}
         <Box display={{ base: isOpen ? "block" : "none", md: "none" }} pb={4}>
           <Stack as={"nav"} spacing={4}>
-            {navItems.map((item) => (
-              <NavLink
-                key={item.path}
-                isActive={isActivePath(item.path)}
-                onClick={() => handleNavigation(item.path)}
-              >
-                {item.label}
-              </NavLink>
-            ))}
-            <Button
-              w="full"
-              variant={"ghost"}
-              color={textColor}
-              onClick={() => handleNavigation("signin")}
-              _hover={{
-                bg: useColorModeValue("gray.100", "gray.700"),
-              }}
-            >
-              Sign In
-            </Button>
-            <Button
-              w="full"
-              bg={accentColor}
-              color={"white"}
-              onClick={() => handleNavigation("signup")}
-              _hover={{
-                bg: "purple.600",
-              }}
-            >
-              Sign Up
-            </Button>
+            {navItems.map(
+              (item) =>
+                (!item.requiresAuth || isAuthenticated) && (
+                  <NavLink
+                    key={item.path}
+                    isActive={isActivePath(item.path)}
+                    onClick={() => handleNavigation(item.path)}
+                  >
+                    {item.label}
+                  </NavLink>
+                )
+            )}
+            <Box pt={2}>
+              <AuthButtons />
+            </Box>
           </Stack>
         </Box>
       </Container>

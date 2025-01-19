@@ -8,9 +8,9 @@ import React, { useState } from "react";
 import SearchBar from "./SearchBar";
 
 const bannerImages = [
-  "../../public/image1.webp",
-  "../../public/image2.webp",
-  "../../public/image3.webp",
+  "/image1.webp",
+  "/image2.webp",
+  "/image3.webp",
 ];
 
 export default function Banner() {
